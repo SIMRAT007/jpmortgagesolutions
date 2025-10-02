@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Scroll behavior and position reset */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure page starts from top on refresh */
+html, body {
+  overflow-x: hidden;
+  scroll-padding-top: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Force scroll position reset */
+* {
+  scroll-margin-top: 0;
+}
