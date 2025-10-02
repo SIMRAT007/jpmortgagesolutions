@@ -44,7 +44,7 @@ const Hero = forwardRef((props, ref) => {
   }, [ref]);
 
   return (
-    <section ref={ref} id="hero" className="min-h-screen flex flex-col bg-gradient-to-br from-[#152945] via-[#152945] to-[#E7CD87] text-white relative overflow-hidden pt-26 md:pt-20">
+    <section ref={ref} id="hero" className="min-h-screen flex flex-col bg-gradient-to-br from-[#152945] via-[#152945] to-[#E7CD87] text-white relative overflow-hidden pt-26 md:pt-0">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-32 h-32 border-2 border-white rounded-full"></div>
@@ -59,7 +59,7 @@ const Hero = forwardRef((props, ref) => {
       </div>
       
       {/* Hero content */}
-      <div className="flex-1 flex items-center justify-between px-8 lg:px-16 xl:px-24 relative z-10">
+      <div className="flex-1 flex items-center justify-between px-8 lg:px-20 xl:px-24 relative z-10">
         {/* Left Content */}
         <div className="flex-1 max-w-3xl">
           <div ref={badgeRef} className="inline-block bg-[#E7CD87] text-[#152945] px-4 py-2 rounded-full text-sm font-semibold mb-6">
