@@ -59,9 +59,9 @@ const Hero = forwardRef((props, ref) => {
       </div>
       
       {/* Hero content */}
-      <div className="flex-1 flex items-center justify-between px-8 lg:px-16 xl:px-28 relative z-10">
+      <div className="flex-1 flex items-center justify-between px-8 lg:px-16 xl:px-24 relative z-10">
         {/* Left Content */}
-        <div className="flex-1 max-w-3xl">
+        <div className="flex-1 max-w-3xl mt-10">
           <div ref={badgeRef} className="inline-block bg-[#E7CD87] text-[#152945] px-4 py-2 rounded-full text-sm font-semibold mb-6">
             🏡 Trusted by 50,000+ families
           </div>
