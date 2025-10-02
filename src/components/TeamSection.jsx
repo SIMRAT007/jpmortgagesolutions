@@ -1,6 +1,9 @@
 import { useEffect, useRef, forwardRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Team1 from '../assets/Team1.webp';
+import Team2 from '../assets/Team2.webp';
+import Team3 from '../assets/Team3.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,7 +77,7 @@ const TeamSection = forwardRef((props, ref) => {
               <div className="h-64 md:h-80 bg-gradient-to-br from-[#152945] to-[#E7CD87] relative overflow-hidden">
                 {/* Team member image */}
                 <img 
-                  src="/src/assets/Team1.webp" 
+                  src={Team1}
                   alt="Perminder (Perry) Gogia"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -112,7 +115,7 @@ const TeamSection = forwardRef((props, ref) => {
               <div className="h-64 md:h-80 bg-gradient-to-br from-[#E7CD87] to-[#EDE8D1] relative overflow-hidden">
                 {/* Team member image */}
                 <img 
-                  src="/src/assets/Team2.webp" 
+                  src={Team2} 
                   alt="Doug Walker"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -150,7 +153,7 @@ const TeamSection = forwardRef((props, ref) => {
               <div className="h-64 md:h-80 bg-gradient-to-br from-[#152945] via-[#E7CD87] to-[#152945] relative overflow-hidden">
                 {/* Team member image */}
                 <img 
-                  src="/src/assets/Team3.webp" 
+                  src={Team3} 
                   alt="Rahul Brahmbhatt"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
