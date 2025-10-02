@@ -44,7 +44,7 @@ const Hero = forwardRef((props, ref) => {
   }, [ref]);
 
   return (
-    <section ref={ref} id="hero" className="min-h-screen flex flex-col bg-gradient-to-br from-[#152945] via-[#152945] to-[#E7CD87] text-white relative overflow-hidden pt-26 md:pt-0">
+    <section ref={ref} id="hero" className="flex flex-col bg-gradient-to-br from-[#152945] via-[#152945] to-[#E7CD87] text-white relative overflow-hidden pt-8 md:pt-0">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-32 h-32 border-2 border-white rounded-full"></div>
