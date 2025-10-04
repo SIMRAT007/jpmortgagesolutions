@@ -193,7 +193,7 @@ const WhyTrustUs = forwardRef((props, ref) => {
         <div ref={ctaRef} className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 shadow-lg">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 text-center">
             <div>
-              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">98%</div>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">99%</div>
               <div className="text-xs md:text-sm text-[#152945]/70 font-medium">Client Satisfaction</div>
             </div>
             <div>
@@ -205,8 +205,8 @@ const WhyTrustUs = forwardRef((props, ref) => {
               <div className="text-xs md:text-sm text-[#152945]/70 font-medium">Average Rating</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">24/7</div>
-              <div className="text-xs md:text-sm text-[#152945]/70 font-medium">Support Available</div>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">$1M+</div>
+              <div className="text-xs md:text-sm text-[#152945]/70 font-medium">Loans Processed</div>
             </div>
           </div>
         </div>

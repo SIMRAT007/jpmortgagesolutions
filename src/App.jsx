@@ -114,26 +114,24 @@ export default function App() {
   }, []);
 
   return (
-    <div className="font-sans min-h-screen">
+    <div className="font-sans">
       {/* Fixed Mobile Navbar */}
-      <div className="md:hidden fixed top-2 left-2 right-2 z-50">
+      <div className="navbar-container fixed top-2 left-1 right-1 sm:top-5 sm:left-2 sm:right-2 z-50 w-[95%] mx-auto">
         <Navbar />
       </div>
       
-      <div className="flex flex-col min-h-screen">
-        <div className="flex-1">
-          <Hero ref={heroRef} />
-          <ProcessSection ref={processSectionRef} />
-          <ServicesAbout ref={servicesAboutRef} />
-          <WhyTrustUs ref={whyTrustUsRef} />
-          <MortgageServices ref={mortgageServicesRef} />
-          <MortgageRoadmap ref={mortgageRoadmapRef} />
-          <TeamSection ref={teamSectionRef} />
-          <ContactSection ref={contactSectionRef} />
-          <MortgageCalculator ref={mortgageCalculatorRef} />
-        </div>
+      <main>
+        <Hero ref={heroRef} />
+        <ProcessSection ref={processSectionRef} />
+        <ServicesAbout ref={servicesAboutRef} />
+        <WhyTrustUs ref={whyTrustUsRef} />
+        <MortgageServices ref={mortgageServicesRef} />
+        <MortgageRoadmap ref={mortgageRoadmapRef} />
+        <TeamSection ref={teamSectionRef} />
+        <ContactSection ref={contactSectionRef} />
+        <MortgageCalculator ref={mortgageCalculatorRef} />
         <Footer ref={footerRef} />
-      </div>
+      </main>
     </div>
   );
 }

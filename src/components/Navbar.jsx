@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import logo from '../assets/logo.jpeg';
+import logo from '../assets/logo.png';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -28,7 +28,7 @@ export default function Navbar() {
           <img 
             src={logo} 
             alt="JP Mortgage Solutions Logo" 
-            className="w-10 h-10 md:w-14 md:h-14 object-contain bg-white p-1 rounded-full shadow-sm"
+            className="w-10 h-10 md:w-14 md:h-14 object-contain bg-[#152945] p-1 rounded-full shadow-sm"
           />
           <span className="text-sm md:text-lg font-bold tracking-wide text-[#152945]">
             <span className="hidden sm:inline">JP MORTGAGE SOLUTIONS</span>

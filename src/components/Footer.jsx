@@ -55,7 +55,8 @@ const Footer = forwardRef((props, ref) => {
               </div>
               <div className="flex items-center text-[#EDE8D1]">
                 <span className="mr-3">✉️</span>
-                <span>info@jpmortgagesolutions.ca</span>
+                <span>admin@jpmortgagesolutions.ca</span>
+                {/* <span>info@jpmortgagesolutions.ca</span> */}
               </div>
             </div>
           </div>
@@ -121,7 +122,7 @@ const Footer = forwardRef((props, ref) => {
           
           {/* License Info */}
           <div className="mt-4 text-center text-[#EDE8D1]/70 text-sm">
-            Licensed Mortgage Broker | FSRA License
+            Licensed Mortgage Broker | RECA License
           </div>
         </div>
       </div>

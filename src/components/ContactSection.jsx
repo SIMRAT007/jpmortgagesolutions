@@ -58,23 +58,37 @@ const ContactSection = forwardRef((props, ref) => {
     setSubmitStatus('');
 
     try {
-      // Replace this URL with your actual API endpoint (Google Sheets, Formspree, etc.)
-      const response = await fetch('https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec', {
+      // Create FormData object for Web3Forms
+      const formDataToSubmit = new FormData();
+      
+      // Add Web3Forms access key (you'll need to get this from https://web3forms.com)
+      formDataToSubmit.append('access_key', 'YOUR_WEB3FORMS_ACCESS_KEY'); // Replace with your actual access key
+      
+      // Add form fields
+      formDataToSubmit.append('name', formData.name);
+      formDataToSubmit.append('phone', formData.phone);
+      formDataToSubmit.append('email', formData.email);
+      formDataToSubmit.append('message', formData.message);
+      
+      // Add additional metadata
+      formDataToSubmit.append('subject', 'New Contact Form Submission - JP Mortgage Solutions');
+      formDataToSubmit.append('from_name', formData.name);
+      formDataToSubmit.append('source', 'JP Mortgage Solutions Website');
+      formDataToSubmit.append('timestamp', new Date().toLocaleString());
+      
+      // Submit to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          timestamp: new Date().toISOString(),
-          source: 'JP Mortgage Solutions Website'
-        }),
+        body: formDataToSubmit
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (result.success) {
         setSubmitStatus('success');
         setFormData({ name: '', phone: '', email: '', message: '' });
       } else {
+        console.error('Web3Forms error:', result);
         setSubmitStatus('error');
       }
     } catch (error) {
@@ -107,6 +121,14 @@ const ContactSection = forwardRef((props, ref) => {
             <h3 className="text-xl md:text-2xl font-bold text-[#152945] mb-6 md:mb-8">Send us a message</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              {/* Web3Forms Access Key - Hidden Field */}
+              <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+              
+              {/* Additional Web3Forms Configuration */}
+              <input type="hidden" name="subject" value="New Contact Form Submission - JP Mortgage Solutions" />
+              <input type="hidden" name="from_name" value="JP Mortgage Solutions Website" />
+              <input type="hidden" name="redirect" value="https://web3forms.com/success" />
+              
               {/* Name Field */}
               <div>
                 <label htmlFor="name" className="block text-[#152945] font-semibold mb-2 md:mb-3 text-sm md:text-base">
@@ -229,10 +251,10 @@ const ContactSection = forwardRef((props, ref) => {
                   <h4 className="text-base md:text-lg font-bold text-[#152945]">Email</h4>
                 </div>
                 <a 
-                  href="mailto:info@jpmortgagesolutions.ca"
+                  href="mailto:admin@jpmortgagesolutions.ca"
                   className="text-[#152945] hover:text-[#E7CD87] transition-colors duration-300 font-medium cursor-pointer text-sm md:text-base break-all"
                 >
-                  info@jpmortgagesolutions.ca
+                  admin@jpmortgagesolutions.ca
                 </a>
               </div>
 

@@ -54,14 +54,14 @@ const Hero = forwardRef((props, ref) => {
       </div>
 
       {/* Navbar positioned at the top with padding */}
-      <div className="pt-8 px-8 relative z-50 md:block hidden">
+      {/* <div className="pt-8 px-8 relative z-50 md:block hidden">
         <Navbar />
-      </div>
+      </div> */}
       
       {/* Hero content */}
       <div className="flex-1 flex items-center justify-between px-8 lg:px-16 xl:px-24 relative z-10">
         {/* Left Content */}
-        <div className="flex-1 max-w-3xl mt-10">
+        <div className="flex-1 max-w-3xl md:mt-30 mt-2">
           <div ref={badgeRef} className="inline-block bg-[#E7CD87] text-[#152945] px-4 py-2 rounded-full text-sm font-semibold mb-6">
             🏡 Trusted by 50,000+ families
           </div>

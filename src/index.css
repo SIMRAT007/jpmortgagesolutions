@@ -7,13 +7,26 @@ html {
 
 /* Ensure page starts from top on refresh */
 html, body {
-  overflow-x: hidden;
-  scroll-padding-top: 0;
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Prevent horizontal scrolling only */
+body {
+  overflow-x: hidden;
+}
+
+/* Ensure main container doesn't create extra scrollbars */
+#root {
+  width: 100%;
+  min-height: 100vh;
 }
 
 /* Force scroll position reset */
 * {
   scroll-margin-top: 0;
+  box-sizing: border-box;
 }

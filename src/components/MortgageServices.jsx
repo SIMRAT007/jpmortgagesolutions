@@ -84,7 +84,7 @@ const MortgageServices = forwardRef((props, ref) => {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-white">
                     <div className="text-5xl md:text-6xl mb-2 md:mb-4">🏠</div>
-                    <div className="text-xs md:text-sm font-medium opacity-80">White and red house</div>
+                    {/* <div className="text-xs md:text-sm font-medium opacity-80">White and red house</div> */}
                   </div>
                 </div>
                 <div className="absolute top-2 md:top-4 left-2 md:left-4 bg-white/20 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full text-white text-xs font-semibold">
@@ -144,7 +144,7 @@ const MortgageServices = forwardRef((props, ref) => {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-[#152945]">
                     <div className="text-5xl md:text-6xl mb-2 md:mb-4">🏢</div>
-                    <div className="text-xs md:text-sm font-medium opacity-80">Gray concrete building under blue sky</div>
+                    {/* <div className="text-xs md:text-sm font-medium opacity-80">Gray concrete building under blue sky</div> */}
                   </div>
                 </div>
                 <div className="absolute top-2 md:top-4 left-2 md:left-4 bg-[#152945]/20 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full text-[#152945] text-xs font-semibold">
@@ -196,7 +196,7 @@ const MortgageServices = forwardRef((props, ref) => {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-white">
                     <div className="text-5xl md:text-6xl mb-2 md:mb-4">💼</div>
-                    <div className="text-xs md:text-sm font-medium opacity-80">Business & Equipment Financing</div>
+                    {/* <div className="text-xs md:text-sm font-medium opacity-80">Business & Equipment Financing</div> */}
                   </div>
                 </div>
                 <div className="absolute top-2 md:top-4 left-2 md:left-4 bg-white/20 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full text-white text-xs font-semibold">
@@ -263,7 +263,7 @@ const MortgageServices = forwardRef((props, ref) => {
         </div>
 
         {/* Service Highlights */}
-        <div ref={highlightsRef} className="mt-8 md:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 text-center">
+        {/* <div ref={highlightsRef} className="mt-8 md:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 text-center">
           <div>
             <div className="bg-[#EDE8D1] w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
               <span className="text-xl md:text-2xl">🏠</span>
@@ -292,7 +292,7 @@ const MortgageServices = forwardRef((props, ref) => {
             <h4 className="font-bold text-[#152945] mb-1 md:mb-2 text-sm md:text-base">Expert Guidance</h4>
             <p className="text-xs md:text-sm text-[#152945]/70">Personalized advice</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
