@@ -62,7 +62,7 @@ const ContactSection = forwardRef((props, ref) => {
       const formDataToSubmit = new FormData();
       
       // Add Web3Forms access key (you'll need to get this from https://web3forms.com)
-      formDataToSubmit.append('access_key', 'YOUR_WEB3FORMS_ACCESS_KEY'); // Replace with your actual access key
+      formDataToSubmit.append('access_key', '0b3a8762-f6f0-452c-81f7-bb5e6e589e42'); // Replace with your actual access key
       
       // Add form fields
       formDataToSubmit.append('name', formData.name);
