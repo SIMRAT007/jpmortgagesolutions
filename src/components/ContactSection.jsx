@@ -1,39 +1,6 @@
-import { useState, useEffect, useRef, forwardRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useState, forwardRef } from 'react';
 
 const ContactSection = forwardRef((props, ref) => {
-  const headerRef = useRef(null);
-  const formRef = useRef(null);
-  const infoRef = useRef(null);
-
-  useEffect(() => {
-    const elements = [headerRef, formRef, infoRef];
-    
-    elements.forEach((elementRef, index) => {
-      if (elementRef.current) {
-        gsap.fromTo(
-          elementRef.current,
-          { opacity: 0, y: 50, x: index === 1 ? -30 : index === 2 ? 30 : 0 },
-          {
-            opacity: 1,
-            y: 0,
-            x: 0,
-            duration: 0.8,
-            delay: index * 0.2,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ref?.current || elementRef.current,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-    });
-  }, [ref]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -104,7 +71,7 @@ const ContactSection = forwardRef((props, ref) => {
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16">
         
         {/* Section Header */}
-        <div ref={headerRef} className="text-center mb-8 md:mb-16">
+        <div className="text-center mb-8 md:mb-16">
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-[#152945] mb-4 md:mb-6">
             Contact <span className="text-[#E7CD87]">Us</span>
           </h2>
@@ -117,7 +84,7 @@ const ContactSection = forwardRef((props, ref) => {
         <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-start">
           
           {/* Contact Form */}
-          <div ref={formRef} className="bg-[#EDE8D1] rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 order-2 lg:order-1">
+          <div className="bg-[#EDE8D1] rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 order-2 lg:order-1">
             <h3 className="text-xl md:text-2xl font-bold text-[#152945] mb-6 md:mb-8">Send us a message</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
@@ -229,7 +196,7 @@ const ContactSection = forwardRef((props, ref) => {
           </div>
 
           {/* Contact Information */}
-          <div ref={infoRef} className="space-y-6 md:space-y-8 order-1 lg:order-2">
+          <div className="space-y-6 md:space-y-8 order-1 lg:order-2">
             {/* Contact Header */}
             <div className="bg-gradient-to-br from-[#152945] to-[#E7CD87] rounded-2xl md:rounded-3xl p-6 md:p-8 text-white">
               <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Get in Touch</h3>
@@ -282,11 +249,18 @@ const ContactSection = forwardRef((props, ref) => {
                   </div>
                   <h4 className="text-base md:text-lg font-bold text-[#152945]">Address</h4>
                 </div>
-                <address className="text-[#152945] not-italic leading-relaxed text-sm md:text-base">
-                  5708 72 Street NW,
-                  Edmonton, AB T6B 3J4,
-                  Canada
-                </address>
+                <a 
+                  href="https://maps.app.goo.gl/Xbsx8EH2GTkGxT686"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#152945] hover:text-[#E7CD87] transition-colors duration-300 font-medium cursor-pointer text-sm md:text-base block"
+                >
+                  <address className="not-italic leading-relaxed">
+                    5708 72 Street NW,
+                    Edmonton, AB T6B 3J4,
+                    Canada
+                  </address>
+                </a>
               </div>
             </div>
 

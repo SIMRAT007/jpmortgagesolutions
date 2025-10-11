@@ -1,44 +1,13 @@
-import { useEffect, useRef, forwardRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { forwardRef } from 'react';
 
 const ServicesAbout = forwardRef((props, ref) => {
-  const servicesRef = useRef(null);
-  const aboutRef = useRef(null);
-
-  useEffect(() => {
-    const elements = [servicesRef, aboutRef];
-    
-    elements.forEach((elementRef, index) => {
-      if (elementRef.current) {
-        gsap.fromTo(
-          elementRef.current,
-          { opacity: 0, y: 60 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            delay: index * 0.3,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ref?.current || elementRef.current,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
-    });
-  }, [ref]);
 
   return (
     <section ref={ref} id="about" className="py-12 md:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16">
         
         {/* Services Section */}
-        <div ref={servicesRef} className="mb-12 md:mb-20">
+        <div className="mb-12 md:mb-20">
           {/* Services Header */}
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#152945] mb-4 md:mb-6">
@@ -115,7 +84,7 @@ const ServicesAbout = forwardRef((props, ref) => {
         </div>
 
         {/* About Section */}
-        <div ref={aboutRef} className="bg-gradient-to-br from-[#152945] to-[#E7CD87] rounded-2xl md:rounded-3xl p-6 md:p-12 lg:p-16 text-white">
+        <div className="bg-gradient-to-br from-[#152945] to-[#E7CD87] rounded-2xl md:rounded-3xl p-6 md:p-12 lg:p-16 text-white">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             
             {/* About Content */}

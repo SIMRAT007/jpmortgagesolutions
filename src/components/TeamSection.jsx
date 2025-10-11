@@ -1,11 +1,7 @@
-import { useEffect, useRef, forwardRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { forwardRef, useState } from 'react';
 import Team1 from '../assets/Team1.webp';
 import Team2 from '../assets/Team2.webp';
 import Team3 from '../assets/Team3.webp';
-
-gsap.registerPlugin(ScrollTrigger);
 
 // Component for individual review cards with truncation
 const ReviewCard = ({ review, maxLength = 150 }) => {
@@ -52,8 +48,6 @@ const ReviewCard = ({ review, maxLength = 150 }) => {
 };
 
 const TeamSection = forwardRef((props, ref) => {
-  const headerRef = useRef(null);
-  const cardsRef = useRef(null);
 
   // Reviews data with links
   const reviews = [
@@ -80,53 +74,12 @@ const TeamSection = forwardRef((props, ref) => {
     }
   ];
 
-  useEffect(() => {
-    if (headerRef.current) {
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ref?.current || headerRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }
-
-    if (cardsRef.current) {
-      const cards = cardsRef.current.children;
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 60, scale: 0.9 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }
-  }, [ref]);
-
   return (
     <section ref={ref} id="team" className="py-12 md:py-20 bg-[#EDE8D1] team-section">
       <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16">
 
         {/* Section Header */}
-        <div ref={headerRef} className="text-center mb-8 md:mb-16">
+        <div className="text-center mb-8 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#152945] mb-4 md:mb-6 px-4">
             Meet Our <span className="text-[#E7CD87]">Expert Team</span>
           </h2>
@@ -137,7 +90,7 @@ const TeamSection = forwardRef((props, ref) => {
         </div>
 
         {/* Team Grid */}
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
 
           {/* Perminder (Perry) Gogia - Broker */}
           <div className="group">
@@ -154,9 +107,9 @@ const TeamSection = forwardRef((props, ref) => {
                 <div className="absolute inset-0 bg-black/30"></div>
 
                 {/* Broker Badge */}
-                <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-[#E7CD87] text-[#152945] px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">
+                {/* <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-[#E7CD87] text-[#152945] px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">
                   Broker
-                </div>
+                </div> */}
 
                 {/* Decorative Elements */}
                 <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-8 h-8 md:w-12 md:h-12 bg-white/10 rounded-full"></div>
@@ -192,9 +145,9 @@ const TeamSection = forwardRef((props, ref) => {
                 <div className="absolute inset-0 bg-black/30"></div>
 
                 {/* Associate Badge */}
-                <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-[#152945] text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">
+                {/* <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-[#152945] text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">
                   Mortgage Associate
-                </div>
+                </div> */}
 
                 {/* Decorative Elements */}
                 <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-8 h-8 md:w-12 md:h-12 bg-[#152945]/10 rounded-full"></div>
@@ -230,9 +183,9 @@ const TeamSection = forwardRef((props, ref) => {
                 <div className="absolute inset-0 bg-black/30"></div>
 
                 {/* Associate Badge */}
-                <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-white text-[#152945] px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">
+                {/* <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-white text-[#152945] px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">
                   Mortgage Associate
-                </div>
+                </div> */}
 
                 {/* Decorative Elements */}
                 <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-8 h-8 md:w-12 md:h-12 bg-white/10 rounded-full"></div>

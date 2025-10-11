@@ -1,8 +1,5 @@
 import { useEffect, useRef, forwardRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { createMobileResponsiveAnimation, createStaggeredAnimation, refreshScrollTrigger } from '../utils/animations';
 
 const WhyTrustUs = forwardRef((props, ref) => {
   const headerRef = useRef(null);
@@ -10,50 +7,34 @@ const WhyTrustUs = forwardRef((props, ref) => {
   const ctaRef = useRef(null);
 
   useEffect(() => {
-    const elements = [headerRef, cardsRef, ctaRef];
+    const elements = [
+      { ref: headerRef, delay: 0 },
+      { ref: cardsRef, delay: 0.2 },
+      { ref: ctaRef, delay: 0.4 }
+    ];
     
-    elements.forEach((elementRef, index) => {
-      if (elementRef.current) {
-        gsap.fromTo(
-          elementRef.current,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            delay: index * 0.2,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ref?.current || elementRef.current,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
+    elements.forEach(({ ref: elementRef, delay }) => {
+      createMobileResponsiveAnimation(elementRef.current, ref, {
+        from: { opacity: 0, y: 50 },
+        to: { opacity: 1, y: 0 },
+        duration: 0.8,
+        delay,
+        triggerStart: "top 85%"
+      });
     });
 
     // Animate cards individually
-    if (cardsRef.current) {
-      const cards = cardsRef.current.children;
-      gsap.fromTo(
-        cards,
-        { opacity: 0, y: 40, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.15,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
+    if (cardsRef.current && cardsRef.current.children.length > 0) {
+      createStaggeredAnimation(cardsRef.current.children, cardsRef, {
+        from: { opacity: 0, y: 40, scale: 0.95 },
+        to: { opacity: 1, y: 0, scale: 1 },
+        duration: 0.6,
+        stagger: 0.15,
+        triggerStart: "top 85%"
+      });
     }
+
+    refreshScrollTrigger();
   }, [ref]);
 
   return (
@@ -193,11 +174,11 @@ const WhyTrustUs = forwardRef((props, ref) => {
         <div ref={ctaRef} className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 shadow-lg">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 text-center">
             <div>
-              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">99%</div>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">99.9%</div>
               <div className="text-xs md:text-sm text-[#152945]/70 font-medium">Client Satisfaction</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">500+</div>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">1000+</div>
               <div className="text-xs md:text-sm text-[#152945]/70 font-medium">Happy Clients</div>
             </div>
             <div>
@@ -205,7 +186,7 @@ const WhyTrustUs = forwardRef((props, ref) => {
               <div className="text-xs md:text-sm text-[#152945]/70 font-medium">Average Rating</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">$1M+</div>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-black text-[#152945] mb-1 md:mb-2">$20M+</div>
               <div className="text-xs md:text-sm text-[#152945]/70 font-medium">Loans Processed</div>
             </div>
           </div>

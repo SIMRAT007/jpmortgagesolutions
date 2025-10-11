@@ -1,8 +1,5 @@
 import { useEffect, useRef, forwardRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { createMobileResponsiveAnimation, createStaggeredAnimation, refreshScrollTrigger } from '../utils/animations';
 
 const MortgageRoadmap = forwardRef((props, ref) => {
   const headerRef = useRef(null);
@@ -11,59 +8,38 @@ const MortgageRoadmap = forwardRef((props, ref) => {
   const summaryRef = useRef(null);
 
   useEffect(() => {
-    const elements = [headerRef, timelineRef, ctaRef, summaryRef];
+    const elements = [
+      { ref: headerRef, delay: 0 },
+      { ref: timelineRef, delay: 0.2 },
+      { ref: ctaRef, delay: 0.4 },
+      { ref: summaryRef, delay: 0.6 }
+    ];
     
-    elements.forEach((elementRef, index) => {
-      if (elementRef.current) {
-        gsap.fromTo(
-          elementRef.current,
-          { 
-            opacity: 0, 
-            y: 50,
-            scale: 0.95
-          },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            delay: index * 0.2,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: ref?.current || elementRef.current,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      }
+    elements.forEach(({ ref: elementRef, delay }) => {
+      createMobileResponsiveAnimation(elementRef.current, ref, {
+        from: { opacity: 0, y: 50, scale: 0.95 },
+        to: { opacity: 1, y: 0, scale: 1 },
+        duration: 0.8,
+        delay,
+        triggerStart: "top 85%"
+      });
     });
 
     // Animate timeline steps individually
     if (timelineRef.current) {
       const steps = timelineRef.current.querySelectorAll('.timeline-step');
-      gsap.fromTo(
-        steps,
-        { 
-          opacity: 0, 
-          x: (index) => index % 2 === 0 ? -100 : 100,
-          scale: 0.8
-        },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
+      if (steps.length > 0) {
+        createStaggeredAnimation(steps, timelineRef, {
+          from: { opacity: 0, x: 50, scale: 0.8 },
+          to: { opacity: 1, x: 0, scale: 1 },
           duration: 0.8,
           stagger: 0.3,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: timelineRef.current,
-            start: "top 60%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
+          triggerStart: "top 85%"
+        });
+      }
     }
+
+    refreshScrollTrigger();
   }, [ref]);
 
   const steps = [
