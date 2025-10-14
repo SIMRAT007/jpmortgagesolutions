@@ -4,3 +4,14 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* Ensure equal height for Swiper slides in Team section */
+.team-section .swiper-slide {
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.team-section .swiper-slide > div {
+  height: 100% !important;
+}

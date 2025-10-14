@@ -1,7 +1,68 @@
 import { forwardRef, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/autoplay';
+
 import Team1 from '../assets/Team1.webp';
 import Team2 from '../assets/Team2.webp';
 import Team3 from '../assets/Team3.webp';
+import Team4 from '../assets/Team4.jpeg';
+import Team5 from '../assets/Team5.jpeg';
+import Team6 from '../assets/Team6.jpeg';
+import Team7 from '../assets/Team7.jpeg';
+
+// Component for individual team member cards
+const TeamMemberCard = ({ member }) => {
+  const gradientClasses = [
+    'from-[#152945] to-[#E7CD87]',
+    'from-[#E7CD87] to-[#EDE8D1]',
+    'from-[#152945] via-[#E7CD87] to-[#152945]',
+    'from-[#EDE8D1] to-[#152945]',
+    'from-[#E7CD87] via-[#152945] to-[#E7CD87]',
+    'from-[#152945] to-[#EDE8D1]',
+    'from-[#E7CD87] to-[#152945]'
+  ];
+
+  const gradientClass = gradientClasses[member.id % gradientClasses.length];
+
+  return (
+    <div className="group h-full md:my-7 md:mx-5 mx-8">
+      <div className="bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 h-full flex flex-col min-h-[550px] md:min-h-[700px]">
+        {/* Image Container */}
+        <div className={`h-64 md:h-80 bg-gradient-to-br ${gradientClass} relative overflow-hidden`}>
+          {member.image ? (
+            <img
+              src={member.image}
+              alt={member.name}
+              className="absolute inset-0 w-full h-full object-fit md:object-fit"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-24 h-24 md:w-32 md:h-32 bg-white/20 rounded-full flex items-center justify-center">
+                <span className="text-white text-2xl md:text-4xl font-bold">{member.initials}</span>
+              </div>
+            </div>
+          )}
+          <div className="absolute inset-0 bg-black/30"></div>
+          <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-8 h-8 md:w-12 md:h-12 bg-white/10 rounded-full"></div>
+          <div className="absolute top-1/2 right-4 md:right-8 w-4 h-4 md:w-6 md:h-6 bg-white/20 rounded-full"></div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 md:p-8 text-center flex-grow flex flex-col">
+          <h3 className="text-xl md:text-2xl font-bold text-[#152945] mb-2">
+            {member.name}
+          </h3>
+          <p className="text-[#E7CD87] font-semibold text-base md:text-lg mb-3 md:mb-4">{member.position}</p>
+          <p className="text-[#152945]/80 leading-relaxed mb-4 md:mb-6 flex-grow text-sm md:text-base">
+            {member.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // Component for individual review cards with truncation
 const ReviewCard = ({ review, maxLength = 150 }) => {
@@ -21,7 +82,7 @@ const ReviewCard = ({ review, maxLength = 150 }) => {
   };
 
   return (
-    <div className="bg-[#EDE8D1] rounded-xl p-4 md:p-6 relative">
+    <div className="bg-[#EDE8D1] rounded-xl p-4 md:p-6 relative md:min-h-[220px] min-h-[200px]">
       <div className="flex items-center mb-3">
         <div className="w-10 h-10 bg-[#152945] rounded-full flex items-center justify-center text-white font-bold text-sm">
           {review.initials}
@@ -49,28 +110,207 @@ const ReviewCard = ({ review, maxLength = 150 }) => {
 
 const TeamSection = forwardRef((props, ref) => {
 
-  // Reviews data with links
+  const MapLink = "https://maps.app.goo.gl/Qv1GbrqeTCScEpcm9"
+
+  const teamMembers = [
+    {
+      id: 1,
+      name: "Perminder (Perry) Gogia",
+      position: "Broker",
+      image: Team1,
+      initials: "PG",
+      description: "Founder and lead broker with extensive experience in mortgage and financing solutions. Perry is dedicated to helping clients achieve their homeownership dreams with personalized service."
+    },
+    {
+      id: 2,
+      name: "Doug Walker",
+      position: "Mortgage Associate",
+      image: Team2,
+      initials: "DW",
+      description: "Experienced mortgage professional specializing in residential lending and client relations. Doug brings dedication and expertise to every transaction with exceptional attention to detail."
+    },
+    {
+      id: 3,
+      name: "Rahul Brahmbhatt",
+      position: "Mortgage Associate",
+      image: Team3,
+      initials: "RB",
+      description: "Skilled mortgage associate with a focus on helping clients navigate complex financing needs. Rahul provides thorough analysis and personalized service throughout the entire process."
+    },
+    {
+      id: 4,
+      name: "Chamkaur Singh",
+      position: "Mortgage Associate",
+      image: Team4,
+      initials: "CS",
+      description: "Experienced mortgage professional who specializes in helping clients achieve their homeownership goals. Chamkaur provides comprehensive support and personalized solutions for diverse financing needs."
+    },
+    {
+      id: 5,
+      name: "Sarbjit Singh",
+      position: "Mortgage Associate",
+      image: Team5,
+      initials: "SS",
+      description: "Knowledgeable mortgage associate with expertise in residential financing and client relations. Sarbjit is dedicated to making the mortgage process smooth and accessible for all clients."
+    },
+    {
+      id: 6,
+      name: "Sivaraj Swaminathan",
+      position: "Mortgage Associate",
+      image: Team6,
+      initials: "SS",
+      description: "Professional mortgage associate with a strong background in financial services and client support. Sivaraj brings analytical skills and personalized attention to help clients secure the best mortgage solutions."
+    },
+    {
+      id: 7,
+      name: "Mantaj Dhillon",
+      position: "Mortgage Associate",
+      image: Team7,
+      initials: "MD",
+      description: "Dedicated mortgage associate committed to providing exceptional client service and expert guidance through the mortgage process. Mantaj brings professionalism and attention to detail to every transaction."
+    } 
+  ];
+
   const reviews = [
     {
       id: 1,
       name: "Pawandeep Singh",
       initials: "PS",
       text: "Highly Recommend JP Mortgage Solution! Great experience from start to finish. The team at JP Mortgage Solution was professional, knowledgeable, and made the whole process smooth and stress-free. They found the best deal for me and explained everything clearly. Would definitely recommend!",
-      link: "https://www.google.com/maps/place/JP+Mortgage+Solutions/@53.4930497,-113.4416911,646m/data=!3m2!1e3!5s0x53a018ed8a8f2cad:0x4ddc14f78be72090!4m8!3m7!1s0x53a01d5649cdffc9:0xfe6a3afd46945fba!8m2!3d53.4930497!4d-113.4391162!9m1!1b1!16s%2Fg%2F11n7ywx_j6?entry=ttu&g_ep=EgoyMDI1MDkzMC4wIKXMDSoASAFQAw%3D%3D"
+      link: MapLink
     },
     {
       id: 2,
       name: "Jaspreet Goraya",
       initials: "JG",
-      text: "We had a truly brilliant experience with JP Mortgages. From the very beginning, the team showed professionalism and a genuine commitment to helping us find the right solution for our mortgage investment. A special mention goes to Perry Gogia for his brilliant financial expertise and the receptionist Prathna, who was incredibly welcoming, friendly, and supportive throughout the process. She made us feel comfortable and well looked after from the first phone call to the final steps. The whole team demonstrated excellent financial knowledge and guided us clearly through what could have been a very overwhelming process. Their skills, patience, and ability to explain everything in detail gave us real confidence and peace of mind. We are very happy with the service we received and would highly recommend JP Mortgages to anyone looking for trustworthy, knowledgeable, and client-focused mortgage advice.",
-      link: "https://www.google.com/maps/place/JP+Mortgage+Solutions/@53.4930497,-113.4416911,646m/data=!3m2!1e3!5s0x53a018ed8a8f2cad:0x4ddc14f78be72090!4m8!3m7!1s0x53a01d5649cdffc9:0xfe6a3afd46945fba!8m2!3d53.4930497!4d-113.4391162!9m1!1b1!16s%2Fg%2F11n7ywx_j6?entry=ttu&g_ep=EgoyMDI1MDkzMC4wIKXMDSoASAFQAw%3D%3D"
+      text: "We had a truly brilliant experience with JP Mortgages. From the very beginning, the team showed professionalism and a genuine commitment to helping us find the right solution for our mortgage investment. A special mention goes to Perry for his exceptional service.",
+      link: MapLink
     },
     {
       id: 3,
       name: "DANCIN PIZZA YARROW",
       initials: "DP",
-      text: "We had an incredible experience working with JP Mortgages! Our refinancing journey was far from simple, but Perry truly took it to another level. His expertise, dedication, and problem-solving skills made all the difference in securing approval from Servus Bank for our store. Perry and his team went above and beyond, ensuring the process was smooth and stress-free. If you're looking for a mortgage professional who will go the extra mile, JP Mortgages is the way to go! Highly recommended. Thank you Team JP Mortgages 🙏",
-      link: "https://www.google.com/maps/place/JP+Mortgage+Solutions/@53.4930497,-113.4416911,646m/data=!3m2!1e3!5s0x53a018ed8a8f2cad:0x4ddc14f78be72090!4m8!3m7!1s0x53a01d5649cdffc9:0xfe6a3afd46945fba!8m2!3d53.4930497!4d-113.4391162!9m1!1b1!16s%2Fg%2F11n7ywx_j6?entry=ttu&g_ep=EgoyMDI1MDkzMC4wIKXMDSoASAFQAw%3D%3D"
+      text: "We had an incredible experience working with JP Mortgages! Our refinancing journey was far from simple, but Perry truly took it to another level. His expertise, dedication, and problem-solving skills made all the difference.",
+      link: MapLink
+    },
+    {
+      id: 4,
+      name: "Gagan Singh Takkar",
+      initials: "GT",
+      text: "I recently worked with Perry for my home loan, and I couldn't be more pleased with the experience. From start to finish, their team was professional, responsive, and knowledgeable. They guided me through every step of the mortgage process.",
+      link: MapLink
+    },
+    {
+      id: 5,
+      name: "Gurpreet Dhillon",
+      initials: "GD",
+      text: "Perry is very professional and informative towards his work. He helps me to get mortgage done for my house. I really appreciate your hard work and honesty. We will definitely will go back to him if buying any property in future, he is extremely great person to talk and to get advice.",
+      link: MapLink
+    },
+    {
+      id: 6,
+      name: "Chamkaur Singh Bains",
+      initials: "CB",
+      text: "Had a Great experience working with Perry. He helped me to get my business loan and my home mortgage in 1 shot. He made this super easy and quick for me. Perry gave me some good advice which made me satisfied with his work and effort. Much appreciated for your honesty and hard work.",
+      link: MapLink
+    },
+    {
+      id: 7,
+      name: "Jasjot Singh",
+      initials: "JS",
+      text: "Getting approved made everything feel real—now I can finally buy my dream home! Big Thanks to JP Mortgage solutions",
+      link: MapLink
+    },
+    {
+      id: 8,
+      name: "Parry VFC",
+      initials: "PV",
+      text: "I had dealt with Jazz there and she's brilliant in what she does. She has immense of knowledge of commercial real estate and businesses. It was a great experience to deal in commercial business with her. Thanks Jazz!",
+      link: MapLink
+    },
+    {
+      id: 9,
+      name: "Senthil Kumar",
+      initials: "SK",
+      text: "We were very happy with the experience and support perry provided. He was honest and reliable. Our questions were answered clearly and explained in a way that we understood each step. Highly recommend",
+      link: MapLink
+    },
+    {
+      id: 10,
+      name: "Nikhil Kohli",
+      initials: "NK",
+      text: "I got my mortgage from them and they are very helpful & reliable. Recommended everybody.",
+      link: MapLink
+    },
+    {
+      id: 11,
+      name: "Priya Raja",
+      initials: "PR",
+      text: "Highly recommends JP solutions those who have hard time with mortgages and buying property they are guiding and helping like brother and sister. Perry and Jazz always welcoming us. We want to go with them in the future also.",
+      link: MapLink
+    },
+    {
+      id: 12,
+      name: "Navraj Brar",
+      initials: "NB",
+      text: "Great experience, Perry helped us to get our first business and we are super happy",
+      link: MapLink
+    },
+    {
+      id: 13,
+      name: "Destiny Changers",
+      initials: "DC",
+      text: "Excellent service in Edmonton they help client and proper guidance for their mortgage.",
+      link: MapLink
+    },
+    {
+      id: 14,
+      name: "Joshveer Atwal",
+      initials: "JA",
+      text: "I appreciate his help in my business loan. He is an expert of his field",
+      link: MapLink
+    },
+    {
+      id: 15,
+      name: "Raja Kamaraj",
+      initials: "RK",
+      text: "They are very helpful and detail oriented. Kind and honest recommends to all.",
+      link: MapLink
+    },
+    {
+      id: 16,
+      name: "Harpreet Singh",
+      initials: "HS",
+      text: "Awesome service no where to look beyond. Perry is the best to deal with. Wonderful person to talk to extremely informative",
+      link: MapLink
+    },
+    {
+      id: 17,
+      name: "Ashpreet Singh",
+      initials: "AS",
+      text: "Very professional and amazing service provider. He values his clients and understand their needs.",
+      link: MapLink
+    },
+    {
+      id: 18,
+      name: "Kashmiri Chonkriay",
+      initials: "KC",
+      text: "Very good service and friendly",
+      link: MapLink
+    },
+    {
+      id: 19,
+      name: "Surinder Pal Singh",
+      initials: "SP",
+      text: "Very professional team 👍",
+      link: MapLink
+    },
+    {
+      id: 20,
+      name: "Inderjeet Pinky",
+      initials: "IP",
+      text: "Excellent customer services",
+      link: MapLink
     }
   ];
 
@@ -89,123 +329,31 @@ const TeamSection = forwardRef((props, ref) => {
           </p>
         </div>
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
-
-          {/* Perminder (Perry) Gogia - Broker */}
-          <div className="group">
-            <div className="bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 h-full flex flex-col">
-              {/* Image Container */}
-              <div className="h-64 md:h-80 bg-gradient-to-br from-[#152945] to-[#E7CD87] relative overflow-hidden">
-                {/* Team member image */}
-                <img
-                  src={Team1}
-                  alt="Perminder (Perry) Gogia"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/30"></div>
-
-                {/* Broker Badge */}
-                {/* <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-[#E7CD87] text-[#152945] px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">
-                  Broker
-                </div> */}
-
-                {/* Decorative Elements */}
-                <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-8 h-8 md:w-12 md:h-12 bg-white/10 rounded-full"></div>
-                <div className="absolute top-1/2 right-4 md:right-8 w-4 h-4 md:w-6 md:h-6 bg-white/20 rounded-full"></div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 md:p-8 text-center flex-grow flex flex-col">
-                <h3 className="text-xl md:text-2xl font-bold text-[#152945] mb-2">
-                  Perminder (Perry) Gogia
-                </h3>
-                <p className="text-[#E7CD87] font-semibold text-base md:text-lg mb-3 md:mb-4">Broker</p>
-                <p className="text-[#152945]/80 leading-relaxed mb-4 md:mb-6 flex-grow text-sm md:text-base">
-                  Founder and lead broker with extensive experience in mortgage and financing solutions.
-                  Perry is dedicated to helping clients achieve their homeownership dreams with personalized service.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Doug Walker - Mortgage Associate */}
-          <div className="group">
-            <div className="bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 h-full flex flex-col">
-              {/* Image Container */}
-              <div className="h-64 md:h-80 bg-gradient-to-br from-[#E7CD87] to-[#EDE8D1] relative overflow-hidden">
-                {/* Team member image */}
-                <img
-                  src={Team2}
-                  alt="Doug Walker"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/30"></div>
-
-                {/* Associate Badge */}
-                {/* <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-[#152945] text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">
-                  Mortgage Associate
-                </div> */}
-
-                {/* Decorative Elements */}
-                <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-8 h-8 md:w-12 md:h-12 bg-[#152945]/10 rounded-full"></div>
-                <div className="absolute top-1/2 right-4 md:right-8 w-4 h-4 md:w-6 md:h-6 bg-[#152945]/20 rounded-full"></div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 md:p-8 text-center flex-grow flex flex-col">
-                <h3 className="text-xl md:text-2xl font-bold text-[#152945] mb-2">
-                  Doug Walker
-                </h3>
-                <p className="text-[#E7CD87] font-semibold text-base md:text-lg mb-3 md:mb-4">Mortgage Associate</p>
-                <p className="text-[#152945]/80 leading-relaxed mb-4 md:mb-6 flex-grow text-sm md:text-base">
-                  Experienced mortgage professional specializing in residential lending and client relations.
-                  Doug brings dedication and expertise to every transaction with exceptional attention to detail.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Rahul Brahmbhatt - Mortgage Associate */}
-          <div className="group">
-            <div className="bg-white rounded-2xl md:rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 h-full flex flex-col">
-              {/* Image Container */}
-              <div className="h-64 md:h-80 bg-gradient-to-br from-[#152945] via-[#E7CD87] to-[#152945] relative overflow-hidden">
-                {/* Team member image */}
-                <img
-                  src={Team3}
-                  alt="Rahul Brahmbhatt"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-black/30"></div>
-
-                {/* Associate Badge */}
-                {/* <div className="absolute top-3 left-3 md:top-4 md:left-4 bg-white text-[#152945] px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-bold shadow-lg">
-                  Mortgage Associate
-                </div> */}
-
-                {/* Decorative Elements */}
-                <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 w-8 h-8 md:w-12 md:h-12 bg-white/10 rounded-full"></div>
-                <div className="absolute top-1/2 right-4 md:right-8 w-4 h-4 md:w-6 md:h-6 bg-white/20 rounded-full"></div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 md:p-8 text-center flex-grow flex flex-col">
-                <h3 className="text-xl md:text-2xl font-bold text-[#152945] mb-2">
-                  Rahul Brahmbhatt
-                </h3>
-                <p className="text-[#E7CD87] font-semibold text-base md:text-lg mb-3 md:mb-4">Mortgage Associate</p>
-                <p className="text-[#152945]/80 leading-relaxed mb-4 md:mb-6 flex-grow text-sm md:text-base">
-                  Skilled mortgage associate with a focus on helping clients navigate complex financing needs.
-                  Rahul provides thorough analysis and personalized service throughout the entire process.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* ✅ Swiper Carousel for Team Members */}
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          loop={true}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          className="pb-12"
+          style={{
+            '--swiper-slide-height': '100%'
+          }}
+        >
+          {teamMembers.map((member) => (
+            <SwiperSlide key={member.id} className="h-auto">
+              <TeamMemberCard member={member} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
         {/* Google Reviews */}
         <div className="mt-8 md:mt-16 bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 shadow-lg">
@@ -214,23 +362,37 @@ const TeamSection = forwardRef((props, ref) => {
               What Our <span className="text-[#E7CD87]">Clients Say</span>
             </h3>
             <div className="flex items-center justify-center gap-2 mb-4">
-              <div className="flex text-yellow-400 text-xl">
-                ⭐⭐⭐⭐⭐
-              </div>
+              <div className="flex text-yellow-400 text-xl">⭐⭐⭐⭐⭐</div>
               <span className="text-[#152945] font-semibold">5/5 on Google</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {/* ✅ Swiper Carousel for Reviews */}
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={24}
+            slidesPerView={1}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            breakpoints={{
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="pb-8"
+          >
             {reviews.map((review) => (
-              <ReviewCard key={review.id} review={review} maxLength={150} />
+              <SwiperSlide key={review.id}>
+                <ReviewCard review={review} maxLength={150} />
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
 
-          {/* Google Reviews CTA */}
           <div className="text-center mt-6 md:mt-8">
             <a
-              href="https://www.google.com/maps/place/JP+Mortgage+Solutions/@53.4930497,-113.4416911,646m/data=!3m2!1e3!5s0x53a018ed8a8f2cad:0x4ddc14f78be72090!4m8!3m7!1s0x53a01d5649cdffc9:0xfe6a3afd46945fba!8m2!3d53.4930497!4d-113.4391162!9m1!1b1!16s%2Fg%2F11n7ywx_j6?entry=ttu&g_ep=EgoyMDI1MDkzMC4wIKXMDSoASAFQAw%3D%3D"
+              href={MapLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-[#152945] text-white font-medium px-6 py-3 rounded-full hover:bg-[#E7CD87] hover:text-[#152945] transition-all duration-300 text-sm"
@@ -239,25 +401,6 @@ const TeamSection = forwardRef((props, ref) => {
             </a>
           </div>
         </div>
-
-        {/* Bottom CTA */}
-        {/* <div className="text-center mt-8 md:mt-12">
-          <h3 className="text-xl md:text-2xl font-bold text-[#152945] mb-3 md:mb-4 px-4">
-            Ready to work with our expert team?
-          </h3>
-          <p className="text-[#152945]/80 mb-6 md:mb-8 max-w-2xl mx-auto px-4 text-sm md:text-base">
-            Our experienced professionals are here to guide you through every step of your mortgage journey. 
-            Contact us today to get started.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center px-4">
-            <button className="bg-[#152945] text-white font-bold px-6 md:px-8 py-3 md:py-4 rounded-full hover:bg-[#E7CD87] hover:text-[#152945] transition-all duration-300 shadow-lg text-sm md:text-base">
-              Schedule Team Consultation
-            </button>
-            <button className="border-2 border-[#152945] text-[#152945] font-bold px-6 md:px-8 py-3 md:py-4 rounded-full hover:bg-[#152945] hover:text-white transition-all duration-300 text-sm md:text-base">
-              Learn About Our Process
-            </button>
-          </div>
-        </div> */}
       </div>
     </section>
   );

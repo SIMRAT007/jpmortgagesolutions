@@ -78,3 +78,12 @@ body {
     transform: none !important;
   }
 }
+
+.swiper-pagination-bullet {
+  background: #E7CD87 !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #152945 !important;
+}

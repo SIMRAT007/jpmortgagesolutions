@@ -2,9 +2,9 @@ import { useState, forwardRef } from 'react';
 
 const MortgageCalculator = forwardRef((props, ref) => {
 
-  const [loanAmount, setLoanAmount] = useState(450000);
-  const [downPayment, setDownPayment] = useState(90000);
-  const [interestRate, setInterestRate] = useState(2.99);
+  const [loanAmount, setLoanAmount] = useState(600000);
+  const [downPayment, setDownPayment] = useState(30000);
+  const [interestRate, setInterestRate] = useState(3.99);
   const [loanTerm, setLoanTerm] = useState(30);
 
   // Calculate monthly payment
@@ -12,6 +12,11 @@ const MortgageCalculator = forwardRef((props, ref) => {
     const principal = loanAmount - downPayment;
     const monthlyRate = interestRate / 100 / 12;
     const numberOfPayments = loanTerm * 12;
+
+    // Handle edge cases - removed downPayment <= 0 condition since 0 down payment is valid
+    if (principal <= 0 || loanTerm <= 0 || numberOfPayments <= 0) {
+      return 0;
+    }
     
     if (monthlyRate === 0) {
       return principal / numberOfPayments;
@@ -19,12 +24,12 @@ const MortgageCalculator = forwardRef((props, ref) => {
     
     const monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
                           (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
-    return monthlyPayment;
+    return isNaN(monthlyPayment) ? 0 : monthlyPayment;
   };
 
   const monthlyPayment = calculateMonthlyPayment();
-  const propertyTax = (loanAmount * 0.01) / 12; // 1% annually
-  const insurance = (loanAmount * 0.006) / 12; // 0.6% annually
+  const propertyTax = loanAmount > 0 ? (loanAmount * 0.01) / 12 : 0; // 1% annually
+  const insurance = loanAmount > 0 ? (loanAmount * 0.006) / 12 : 0; // 0.6% annually
   const totalMonthly = monthlyPayment + propertyTax + insurance;
 
   return (
@@ -70,7 +75,7 @@ const MortgageCalculator = forwardRef((props, ref) => {
               {/* Down Payment */}
               <div className="mb-4 md:mb-6">
                 <label className="block text-[#152945] font-semibold mb-2 md:mb-3 text-sm md:text-base">
-                  Down Payment: ${downPayment.toLocaleString()} ({((downPayment/loanAmount) * 100).toFixed(1)}%)
+                  Down Payment: ${downPayment.toLocaleString()} ({loanAmount > 0 ? ((downPayment/loanAmount) * 100).toFixed(1) : 0}%)
                 </label>
                 <input
                   type="range"
