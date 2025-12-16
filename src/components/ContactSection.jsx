@@ -1,6 +1,8 @@
-import { useState, forwardRef } from 'react';
+import { useState, forwardRef, useEffect } from 'react';
+import { getCompanySettings, defaultSettings } from '../../backend/services/settingsService';
 
 const ContactSection = forwardRef((props, ref) => {
+  const [settings, setSettings] = useState(defaultSettings);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -10,6 +12,16 @@ const ContactSection = forwardRef((props, ref) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+
+  useEffect(() => {
+    const loadSettings = async () => {
+      const result = await getCompanySettings();
+      if (result.success) {
+        setSettings(result.data);
+      }
+    };
+    loadSettings();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -218,10 +230,10 @@ const ContactSection = forwardRef((props, ref) => {
                   <h4 className="text-base md:text-lg font-bold text-[#152945]">Email</h4>
                 </div>
                 <a 
-                  href="mailto:admin@jpmortgagesolutions.ca"
+                  href={`mailto:${settings.email}`}
                   className="text-[#152945] hover:text-[#E7CD87] transition-colors duration-300 font-medium cursor-pointer text-sm md:text-base break-all"
                 >
-                  admin@jpmortgagesolutions.ca
+                  {settings.email || 'admin@jpmortgagesolutions.ca'}
                 </a>
               </div>
 
@@ -234,10 +246,10 @@ const ContactSection = forwardRef((props, ref) => {
                   <h4 className="text-base md:text-lg font-bold text-[#152945]">Phone</h4>
                 </div>
                 <a 
-                  href="tel:+17803627172"
+                  href={`tel:${settings.phone?.replace(/[^+\d]/g, '')}`}
                   className="text-[#152945] hover:text-[#E7CD87] transition-colors duration-300 font-medium cursor-pointer text-sm md:text-base"
                 >
-                  +1-780-362-7172
+                  {settings.phone || '+1-780-362-7172'}
                 </a>
               </div>
 
@@ -256,9 +268,7 @@ const ContactSection = forwardRef((props, ref) => {
                   className="text-[#152945] hover:text-[#E7CD87] transition-colors duration-300 font-medium cursor-pointer text-sm md:text-base block"
                 >
                   <address className="not-italic leading-relaxed">
-                    5708 72 Street NW,
-                    Edmonton, AB T6B 3J4,
-                    Canada
+                    {settings.address || '5708 72 Street NW, Edmonton, AB T6B 3J4'}
                   </address>
                 </a>
               </div>
@@ -308,7 +318,7 @@ const ContactSection = forwardRef((props, ref) => {
                 Calculate Your Mortgage
               </button>
               <a 
-                href="tel:+17803627172"
+                href={`tel:${settings.phone?.replace(/[^+\d]/g, '') || '+17803627172'}`}
                 className="border-2 border-[#152945] text-[#152945] font-bold px-6 md:px-8 py-3 md:py-4 rounded-full hover:bg-[#152945] hover:text-white transition-all duration-300 inline-block text-center cursor-pointer text-sm md:text-base"
               >
                 Call Us Now

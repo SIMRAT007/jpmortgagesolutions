@@ -1,9 +1,12 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 
+import { getAllTeamMembers } from '../../backend/services/teamsService';
+
+// Default team images as fallback
 import Team1 from '../assets/Team1.webp';
 import Team2 from '../assets/Team2.webp';
 import Team3 from '../assets/Team3.webp';
@@ -109,10 +112,13 @@ const ReviewCard = ({ review, maxLength = 150 }) => {
 };
 
 const TeamSection = forwardRef((props, ref) => {
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const MapLink = "https://maps.app.goo.gl/Qv1GbrqeTCScEpcm9"
 
-  const teamMembers = [
+  // Default/fallback team data
+  const defaultTeamMembers = [
     {
       id: 1,
       name: "Perminder (Perry) Gogia",
@@ -170,6 +176,31 @@ const TeamSection = forwardRef((props, ref) => {
       description: "Dedicated mortgage associate committed to providing exceptional client service and expert guidance through the mortgage process. Mantaj brings professionalism and attention to detail to every transaction."
     } 
   ];
+
+  // Fetch team members from Firebase
+  useEffect(() => {
+    const fetchTeamMembers = async () => {
+      try {
+        const result = await getAllTeamMembers();
+        if (result.success && result.data.length > 0) {
+          // Sort by order field
+          const sorted = result.data.sort((a, b) => (a.order || 0) - (b.order || 0));
+          setTeamMembers(sorted);
+        } else {
+          // Use default data if Firebase is empty
+          setTeamMembers(defaultTeamMembers);
+        }
+      } catch (error) {
+        console.error('Error fetching team members:', error);
+        // Use default data on error
+        setTeamMembers(defaultTeamMembers);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeamMembers();
+  }, []);
 
   const reviews = [
     {

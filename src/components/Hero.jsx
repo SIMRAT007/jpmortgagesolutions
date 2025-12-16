@@ -1,7 +1,19 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState, useEffect } from 'react';
 import Navbar from './Navbar';
+import { getCompanySettings, defaultSettings } from '../../backend/services/settingsService';
 
 const Hero = forwardRef((props, ref) => {
+  const [settings, setSettings] = useState(defaultSettings);
+
+  useEffect(() => {
+    const loadSettings = async () => {
+      const result = await getCompanySettings();
+      if (result.success) {
+        setSettings(result.data);
+      }
+    };
+    loadSettings();
+  }, []);
 
   return (
     <section ref={ref} id="hero" className="min-h-screen flex flex-col bg-gradient-to-br from-[#152945] via-[#152945] to-[#E7CD87] text-white relative overflow-hidden pt-26 md:pt-0">
@@ -39,7 +51,7 @@ const Hero = forwardRef((props, ref) => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-12">
             <a 
-              href="tel:+17803627172"
+              href={`tel:${settings.phone?.replace(/[^+\d]/g, '') || '+17803627172'}`}
               className="bg-[#E7CD87] text-[#152945] font-bold px-8 py-4 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 shadow-lg text-center inline-block cursor-pointer"
             >
               Call Us Now
